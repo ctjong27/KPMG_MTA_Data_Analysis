@@ -11,6 +11,10 @@ def get_total_events_count(queried_text):
     Returns a DataFrame with columns 'date' and 'total_events'.
     """
 
+    # Create signals directory if it does not exist
+    if not os.path.isdir('./signals'):
+        os.mkdir('./signals')
+        
     # Prep dataframe for all applicable date ranges for which there will be total_{QUERIED_TEXT} count
     queried_start_date = pd.to_datetime('2020-01-01')
     queried_end_date = pd.to_datetime('2023-06-01')
@@ -84,6 +88,10 @@ def get_total_categorial_events_count(queried_text):
     January 1, 2020 and June 1, 2023 and saves to a file.
     """
 
+    # Create signals directory if it does not exist
+    if not os.path.isdir('./signals'):
+        os.mkdir('./signals')
+        
     # Prepare dataframe for all applicable date ranges for which there will be total_{queried_text} count
     queried_start_date = pd.to_datetime('2020-01-01')
     queried_end_date = pd.to_datetime('2023-06-01')
@@ -167,6 +175,10 @@ def get_venue_events_bool(queried_text):
     and saves a CSV file with the dates for which events occurred.
     '''
 
+    # Create signals directory if it does not exist
+    if not os.path.isdir('./signals'):
+        os.mkdir('./signals')
+        
     csv_filename = f'./signals/donyc_{queried_text}.csv'
 
     # Prep dataframe for all applicable date ranges for which there will be total_{QUERIED_TEXT} count
