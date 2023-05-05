@@ -2,6 +2,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 import os
+from datetime import date, timedelta
 
 
 def get_total_events_count(queried_text):
@@ -21,7 +22,7 @@ def get_total_events_count(queried_text):
     base_url = f'https://donyc.com/events/{{}}/{{}}/{{}}?page={{}}'
 
     # Verify that file exists
-    csv_filename = f'donyc_{queried_text}.csv'
+    csv_filename = f'./signals/donyc_{queried_text}.csv'
     if os.path.isfile(csv_filename):
         queried_date_range_df = pd.read_csv(csv_filename, parse_dates=['date'])
 
@@ -94,7 +95,7 @@ def get_total_categorial_events_count(queried_text):
     base_url = 'https://donyc.com/events/{}/{}/{}/{}?page={}'
 
     # Verify that file exists
-    csv_filename = f'donyc_{queried_text}.csv'
+    csv_filename = f'./signals/donyc_{queried_text}.csv'
     if os.path.isfile(csv_filename):
         queried_date_range_df = pd.read_csv(csv_filename, parse_dates=['date'])
 
@@ -165,8 +166,8 @@ def get_venue_events_bool(queried_text):
     Scrapes the donyc.com website for past and future events at Madison Square Garden
     and saves a CSV file with the dates for which events occurred.
     '''
-    queried_text = 'madison-square-garden'
-    csv_filename = f'donyc_{queried_text}.csv'
+
+    csv_filename = f'./signals/donyc_{queried_text}.csv'
 
     # Prep dataframe for all applicable date ranges for which there will be total_{QUERIED_TEXT} count
     queried_start_date = pd.to_datetime('2020-01-01')
@@ -203,7 +204,7 @@ def get_venue_events_bool(queried_text):
             event_date = pd.to_datetime(date(year, month, day))
             print(event_date)
 
-            if event_date < queried_start_date.date():
+            if event_date.date() < queried_start_date.date():
                 logic_complete = True
                 break
 
@@ -233,7 +234,7 @@ def get_venue_events_bool(queried_text):
             event_date = pd.to_datetime(date(year, month, day))
             print(event_date)
 
-            if event_date > queried_end_date.date():
+            if event_date.date() > queried_end_date.date():
                 logic_complete = True
                 break
 
@@ -246,3 +247,22 @@ def get_venue_events_bool(queried_text):
         # one page is complete, run the next page
         print(page_num)
         page_num += 1
+
+
+def donyc_data_consolidate():
+
+    directory_string = './signals/'
+
+    # Find all files starting with 'donyc_....csv' in current directory
+    files = [file for file in os.listdir(directory_string) if file.startswith('donyc_') and file.endswith('.csv')]
+
+    # Retrieve the first file as donyc_df
+    donyc_df = pd.read_csv(directory_string+files[0])
+    print(files)
+    for i in range(1, len(files)):
+        # Loop through remaining files and add rightmost column to donyc_df
+        df = pd.read_csv(directory_string+files[i])
+        print(df.columns[-1])
+        donyc_df[df.columns[-1]] = df.iloc[:, -1]
+
+    donyc_df.to_csv('total_donyc_events.csv', index=False)
