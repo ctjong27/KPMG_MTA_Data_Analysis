@@ -250,6 +250,10 @@ def get_venue_events_bool(queried_text):
 
 
 def donyc_data_consolidate():
+    """
+    Consolidates all the files in the 'signals' directory starting with 'donyc_....csv' into a single dataframe,
+    and saves the dataframe as 'total_donyc_events.csv' in the current working directory.
+    """
 
     directory_string = './signals/'
 
