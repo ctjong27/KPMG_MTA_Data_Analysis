@@ -149,7 +149,7 @@ def get_total_categorial_events_count(queried_text):
             # Loop through each event card that matches the specified classes
             for card in event_cards:
                 # Find the anchor tag with an href attribute that starts with '/events/{}/{}/{}/' and the specified classes
-                anchor = card.find('a', href=lambda href: href and href.startswith(f'/events/{{}}/{{}}/{{}}/'.format(year, month, day)), class_=f'ds-listing-{queried_text}-title url summary')
+                anchor = card.find('a', href=lambda href: href and href.startswith(f'/events/{{}}/{{}}/{{}}/'.format(year, month, day)), class_=f'ds-listing-event-title url summary')
                 if anchor:
                     count += 1
                 else:
