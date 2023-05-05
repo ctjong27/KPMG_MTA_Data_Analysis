@@ -140,7 +140,7 @@ def get_total_categorial_events_count(queried_text):
             soup = BeautifulSoup(response.content, 'html.parser')
 
             # Find all div elements with a class attribute starting with 'ds-listing event-card'
-            event_cards = soup.select(f'div[class^="ds-listing {queried_text}-card"]')
+            event_cards = soup.select('div[class^="ds-listing event-card"]')
 
             # If no event cards are found, break out of the loop
             if not event_cards:
