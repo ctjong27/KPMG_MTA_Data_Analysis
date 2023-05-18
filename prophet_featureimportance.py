@@ -6,7 +6,7 @@ from prophet.diagnostics import cross_validation
 from prophet.diagnostics import performance_metrics
 
 # Load the data
-data = pd.read_csv('/content/Final All New Signals_with_weekday.csv')
+data = pd.read_csv('../consolidated_signals.csv')
 data['date'] = pd.to_datetime(data['date'])
 start_date = '2020-04-20'
 end_date = '2023-03-16'
