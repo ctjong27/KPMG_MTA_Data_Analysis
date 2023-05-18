@@ -6,7 +6,7 @@ from prophet.diagnostics import cross_validation
 from prophet.diagnostics import performance_metrics
 
 # Load the data
-data = pd.read_csv('../consolidated_signals.csv')
+data = pd.read_csv('./data/consolidated_signals.csv')
 data['date'] = pd.to_datetime(data['date'])
 start_date = '2020-04-20'
 end_date = '2023-03-16'
@@ -73,7 +73,7 @@ mean_absolute_percentage_error
 fig = m.plot_components(forecast)
 plt.show()
 
-regressor_values
+# regressor_values
 
 # Create an empty dataframe to store the contributions
 contributions = pd.DataFrame()

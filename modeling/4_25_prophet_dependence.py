@@ -1,15 +1,14 @@
+
 import pandas as pd
 from prophet import Prophet
 import matplotlib.pyplot as plt
 import numpy as np
 from prophet.diagnostics import cross_validation
 from prophet.diagnostics import performance_metrics
-
-from google.colab import drive
-drive.mount('/content/drive')
+import seaborn as sns
 
 #data = pd.read_csv('/content/Simplified All New Signals_weather holiday.csv')
-data = pd.read_csv('/content/drive/MyDrive/updated_Simplified All New Signals_weather holiday.csv')
+data = pd.read_csv('../data/consolidated_signals.csv')
 data['date'] = pd.to_datetime(data['date'])
 start_date = '2020-04-20'
 end_date = '2023-03-16'
@@ -21,6 +20,10 @@ data
 
 #rename for prophet requirement
 data = data.rename(columns={"date": "ds", "ridership": "y"})
+
+data.columns
+
+data
 
 #check null values
 print(data.isna().sum())
@@ -81,7 +84,7 @@ mean_absolute_percentage_error
 
 """# Event and temp"""
 
-eventemp = fold7[['ds','y','day temp','night temp','total_comedy','total_events','total_film-screenings','total_music']]
+eventemp = fold7[['ds','y','high_temp','low_temp','total_comedy','total_events','total_film-screenings','total_music']]
 
 m2 = Prophet()
 for column in eventemp.columns:
@@ -385,7 +388,7 @@ plt.legend()
 plt.show()
 
 import numpy as np
-from sklearn.metrics import mean_absolute_error, mean_squared_errorm
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 #fold 1
 ape = np.abs((forecast['actual'] - forecast['trend']) / forecast['trend'])
