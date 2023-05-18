@@ -18,8 +18,8 @@ def crawl(month,year):
         weather_info = {}
         weather_info['date'] = '{}-{}-{:02d}'.format(year,month,i+1)
         weather_info['weather'] = today.find('i')['title']
-        weather_info['high_temp'] = today.find('span').text
-        weather_info['low_temp'] = today.find('p').text
+        weather_info['high_temp'] = today.find('span').text.replace('+', '').replace('°', '')
+        weather_info['low_temp'] = today.find('p').text.replace('+', '').replace('°', '')
         weather_lst.append(weather_info)
     return weather_lst
 
