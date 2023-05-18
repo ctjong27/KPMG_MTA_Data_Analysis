@@ -47,6 +47,7 @@ pytz==2023.3
 pywin32==306
 pyzmq==25.0.2
 requests==2.30.0
+seaborn==0.12.2
 six==1.16.0
 soupsieve==2.4.1
 stack-data==0.6.2
