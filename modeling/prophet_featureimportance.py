@@ -5,6 +5,11 @@ import numpy as np
 from prophet.diagnostics import cross_validation
 from prophet.diagnostics import performance_metrics
 
+"""# Run Data Analysis
+
+## Data Retrieval, metric result for MAE & MAPE, and feature importance plot
+"""
+
 # Load the data
 data = pd.read_csv('./data/consolidated_signals.csv')
 data['date'] = pd.to_datetime(data['date'])
@@ -68,12 +73,13 @@ y_true = testing['y'].values
 y_pred = forecast['yhat'].values
 absolute_percentage_error = np.abs((y_true - y_pred) / y_true)
 mean_absolute_percentage_error = np.mean(absolute_percentage_error) * 100
-mean_absolute_percentage_error
+
+"""## Forecast components plots"""
 
 fig = m.plot_components(forecast)
 plt.show()
 
-# regressor_values
+"""## Contributions of variables for each date"""
 
 # Create an empty dataframe to store the contributions
 contributions = pd.DataFrame()
@@ -91,7 +97,7 @@ contributions.set_index('date', inplace=True)
 
 contributions
 
-contributions.to_csv('contributions.csv', index=True)
+"""## Contributions of regressor for each date"""
 
 import matplotlib.pyplot as plt
 
@@ -155,3 +161,47 @@ if len(regressor_names) % 2 != 0:
     axes[-1, -1].remove()
 
 plt.show()
+
+"""# Results"""
+
+print("")
+print("########################################################################")
+print("")
+print(f"absolute_percentage_error: {absolute_percentage_error}")
+print(f"mean_absolute_percentage_error: {mean_absolute_percentage_error}")
+
+
+
+# Find the highest value in each column
+max_values = contributions.max()
+
+# Iterate over each column and find the key and value for the highest value
+print("")
+print("########################################################################")
+print("")
+print("Highest Value & Date pairs of feature importance in the forecasted dates")
+result = []
+for column in contributions.columns:
+    key = contributions[column].idxmax()
+    value = contributions.loc[key, column]
+    result.append(f"The highest of '{column}'  with a value of '{value}' on day '{key}'")
+
+# Print the formatted text
+for text in result:
+    print(text)
+
+    
+    
+# Compute the sum of each column
+column_sums = contributions.sum()
+
+# Sort the column sums in descending order
+sorted_sums = column_sums.sort_values(ascending=False)
+
+# Print the results in descending order
+print("")
+print("########################################################################")
+print("")
+print("Decending value of aggregated sum of feature importance in the forecasted dates")
+for column, value in sorted_sums.items():
+    print(f"Sum of '{column}' has a lifetime significance of {value}.")
