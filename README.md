@@ -23,11 +23,11 @@ Each of the child folders contain an aggregated daily data from respective sourc
 # Modeling
 ./modeling/ : Contains codes used to tune parameters and generate regression reports and plots
 
-./modeling/4_25_prophet_parameter_tuning.py contains a work-in-progress of optimizing parameters for the prophet
+./modeling/4_25_prophet_parameter_tuning.py : A work-in-progress of optimizing parameters for the prophet
 
-./modeling/prophet_parameter_tuning.py contains the optimized prophet model with proper parameters
+./modeling/prophet_parameter_tuning.py : Optimized prophet model with proper parameters
 
-./modeling/prophet_featureimportance.py contains the code that generates report of Mean Absolute Error (MAE), Mean Absolute Percentage Error (MAPE), and feature importance for the forecatsed date range
+./modeling/prophet_featureimportance.py : From the root directory, generates report of Mean Absolute Error (MAE), Mean Absolute Percentage Error (MAPE), and feature importance for the forecatsed date range
 
 
 # Misc Files
