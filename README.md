@@ -31,6 +31,8 @@ Each of the child folders contain an aggregated daily data from respective sourc
 
 
 # Misc Files
-License - MIT License
+License : MIT License
 
-requirements.txt - contains a list of dependences required to run code properly
+requirements.txt : Contains a list of dependences required to run code properly
+
+./_archives/ : Contains work-in-progress files used in various portions of the project
